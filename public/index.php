@@ -1,5 +1,7 @@
 <?php
 
-require_once '../app/bootstrap.php';
+use App\Core\Router;
 
-$core = new Core();
+require_once dirname(__DIR__) . '/app/bootstrap.php';
+
+(new Router)->dispatch();

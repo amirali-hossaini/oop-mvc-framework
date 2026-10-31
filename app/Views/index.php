@@ -6,8 +6,12 @@
     <title><?= APP_NAME ?></title>
 </head>
 <body>
-    <?php include_once APP_ROOT . '/views/layouts/header.php' ?>
-    <h1>Index Page</h1>
-    <?php include_once APP_ROOT . '/views/layouts/footer.php' ?>
+    <?php includeFromRoot('app/Views/Layouts/header.php') ?>
+
+    <main>
+        <h1>Index Page</h1>
+    </main>
+
+    <?php includeFromRoot('app/Views/Layouts/footer.php') ?>
 </body>
 </html>
