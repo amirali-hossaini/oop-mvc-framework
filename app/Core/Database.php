@@ -1,8 +1,11 @@
 <?php
 
+namespace App\Core;
+
+use PDO;
+
 class Database
 {
-
     private string $db_host = DB_HOST;
     private string $db_name = DB_NAME;
     private string $db_user = DB_USER;
@@ -10,22 +13,13 @@ class Database
 
     protected $db;
     protected $stmt;
-    protected $error;
 
     public function __construct()
     {
+        $dsn = "mysql:host=$this->db_host;dbname=$this->db_name;charset=utf8mb4";
 
-        $dsn = "mysql:host=$this->db_host;dbname=$this->db_name;charset=utf8";
-
-        try {
-
-            $this->db = new PDO($dsn, $this->db_user, $this->db_pass);
-            $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-        } catch (PDOException $e) {
-
-            $this->error = $e->getMessage();
-            die($this->error);
-        }
+        $this->db = new PDO($dsn, $this->db_user, $this->db_pass);
+        $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
     }
 
     public function query($sql)
@@ -42,14 +36,13 @@ class Database
 
     public function get($params = [], $fetch_type = PDO::FETCH_OBJ)
     {
-
         $this->stmt->execute($params);
+
         return $this->stmt->fetchAll($fetch_type);
     }
 
     public function getFetch($params = [], $fetch_type = PDO::FETCH_OBJ)
     {
-
         $this->stmt->execute($params);
         return $this->stmt->fetch($fetch_type);
     }
